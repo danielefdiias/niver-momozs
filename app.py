@@ -1,11 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 import datetime
+import os
 
 app = Flask(__name__)
 
 # Dicionário de vouchers
 vouchers = {
-    "01/01": "testando",
     "02/01": "Jantar romântico",
     "03/01": "Piquenique no Parque",
     "04/01": "Sessão de Cinema em Casa",
@@ -30,5 +30,12 @@ def index():
     current_voucher = vouchers.get(today, "Sem voucher para hoje.")
     return render_template('index.html', voucher=current_voucher)
 
+# Rota para servir arquivos estáticos do diretório 'docs' quando executado localmente
+@app.route('/docs/<path:filename>')
+def serve_static(filename):
+    root_dir = os.path.abspath(os.path.dirname(__file__))
+    return send_from_directory(os.path.join(root_dir, 'docs'), filename)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+    app.run(port=5000)
