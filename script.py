@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 # Dicionário de vouchers
 vouchers = {
+    "01/01": "testando",
     "02/01": "Jantar romântico",
     "03/01": "Piquenique no Parque",
     "04/01": "Sessão de Cinema em Casa",
