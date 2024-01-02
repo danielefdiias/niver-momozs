@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask.templating import render_template as flask_render_template
 import os
 
 app = Flask(__name__)
@@ -23,7 +24,6 @@ vouchers = {
     "17/01": "café na cama",
 }
 
-
 # Diretório onde será salvo o HTML estático
 output_dir = 'docs'
 
@@ -32,8 +32,13 @@ if not os.path.exists(output_dir):
 
 # Rota para gerar e salvar HTML estático para cada voucher
 for day, voucher_text in vouchers.items():
-    rendered_html = render_template('index.html', voucher=voucher_text)
-    output_file = os.path.join(output_dir, f"{day}.html")
+    with app.app_context():
+        rendered_html = flask_render_template('index.html', voucher=voucher_text)
+    
+    # Substitua "/" por "_" no nome do arquivo para evitar problemas com caminhos
+    day_filename = day.replace("/", "_") + ".html"
+    
+    output_file = os.path.join(output_dir, day_filename)
     
     with open(output_file, 'w') as f:
         f.write(rendered_html)

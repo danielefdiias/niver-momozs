@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Niver Momozs</title>
+    <!-- Adicione a referência ao Bootstrap CSS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .modal-content {
+        background-color: #ffffff;
+      }
+
+      #countdown {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      #openButton {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="text-center">
+        Contagem regressiva para o seu aniversário momozs
+      </h2>
+
+      <p>
+        Amor, fiz isso pra ti, e todos os dias, tu terá um voucher com algo,
+        basta clicar no botão e abrir pra ver o que há, possivelmente precisará
+        escolher uma data pra que seja executado, tu como niversariante terá até
+        120 dias para realizar o agendamento kkk
+      </p>
+
+      <!-- Adicione a contagem regressiva -->
+      <div id="countdown"></div>
+
+      <!-- Adicione o botão para abrir o modal -->
+      <button
+        id="openButton"
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#voucherModal"
+      >
+        Abrir Ticket do Dia
+      </button>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="voucherModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="voucherModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="voucherModalLabel">Voucher do Dia</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Adicione a variável voucher aqui -->
+              <p>Dia de Spa em Casa</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Fechar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Adicione a referência ao Bootstrap JS e jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Adicione o script para a contagem regressiva -->
+    <script>
+      // Defina a data final da contagem regressiva
+      var endDate = new Date("January 17, 2024 00:00:00").getTime();
+
+      // Atualize a contagem regressiva a cada segundo
+      var countdownInterval = setInterval(function () {
+        var now = new Date().getTime();
+        var distance = endDate - now;
+
+        // Calcule os dias, horas, minutos e segundos restantes
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Exiba a contagem regressiva no elemento com o id "countdown"
+        document.getElementById("countdown").innerHTML =
+          "Faltam: " +
+          days +
+          "d " +
+          hours +
+          "h " +
+          minutes +
+          "m " +
+          seconds +
+          "s ";
+
+        // Verifique se a contagem regressiva chegou ao fim
+        if (distance < 0) {
+          clearInterval(countdownInterval);
+          document.getElementById("countdown").innerHTML = "O evento acabou!";
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
