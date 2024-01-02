@@ -23,6 +23,7 @@ vouchers = {
     "17/01": "café na cama",
 }
 
+
 # Diretório onde será salvo o HTML estático
 output_dir = 'docs'
 
